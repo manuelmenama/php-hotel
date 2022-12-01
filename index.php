@@ -2,7 +2,7 @@
 
     $have_parking = $_GET["have_parking"];
     $star_vote = $_GET["star_vote"];
-    $star_vote = intval($star_vote);
+    $star_vote_int = intval($star_vote);
 
     
 
@@ -71,7 +71,9 @@
 
     <?php 
     
-      echo "<p>$have_parking</p>";
+      /*var_dump($have_parking);
+      var_dump($star_vote);
+      var_dump($star_vote_int);*/
       
 
     ?>
@@ -89,7 +91,8 @@
         </label>
       </div>
       <select class="form-select me-3" aria-label="Default select example" name="star_vote">
-        <option selected>Minimum stars</option>
+
+        <option value="" selected>Number of star</option>
         <option value="1">Una Stella</option>
         <option value="2">Due Stelle</option>
         <option value="3">Tre Stelle</option>
@@ -116,72 +119,39 @@
         <tbody>
           
           <?php
-            /*if(isset($star_vote)){
-
-              if($hotel["vote"] >= $star_vote){
-                foreach($hotels as $hotel){
-                  echo "<tr>";
-                    foreach($hotel as $key => $argument){
-                      if($key === 'name'){
-                        echo "<th>$argument</th>";
-                      }elseif($key === 'parking'){
-                        if($argument){
-                          echo "<td>Si</td>";
-                        }else{
-                          echo "<td>No</td>";
-                        }
-                      }else{
-                        echo "<td>$argument</td>";
-                      }
-                    }
-                  echo "</tr>";
-                }
-              }
-
-            }else{
-              foreach($hotels as $hotel){
-                echo "<tr>";
-                  foreach($hotel as $key => $argument){
-                    if($key === 'name'){
-                      echo "<th>$argument</th>";
-                    }elseif($key === 'parking'){
-                      if($argument){
-                        echo "<td>Si</td>";
-                      }else{
-                        echo "<td>No</td>";
-                      }
-                    }else{
-                      echo "<td>$argument</td>";
-                    }
-                  }
-                echo "</tr>";
-              }
-            }*/
             if(isset($have_parking)){
-              
-              ($have_parking === "1") ? $have_parking = true : $have_parking = false;
 
+              if($have_parking === "1"){
+                $have_parking = true;
+              }elseif($have_parking === "0"){
+                $have_parking = false;
+              }
+
+              //var_dump($have_parking);
 
               foreach($hotels as $hotel){
+                if($hotel["parking"] === $have_parking ){
+                  if($hotel["vote"] >= $star_vote_int){
 
-                if($hotel["parking"] === $have_parking){
-                  echo "<tr>";
-                    foreach($hotel as $key => $argument){
-                      if($key === 'name'){
-                        echo "<th>$argument</th>";
-                      }elseif($key === 'parking'){
-                        if($argument){
-                          echo "<td>Si</td>";
+                    echo "<tr>";
+                      foreach($hotel as $key => $argument){
+                        if($key === 'name'){
+                          echo "<th>$argument</th>";
+                        }elseif($key === 'parking'){
+                          if($argument){
+                            echo "<td>Si</td>";
+                          }else{
+                            echo "<td>No</td>";
+                          }
                         }else{
-                          echo "<td>No</td>";
+                          echo "<td>$argument</td>";
                         }
-                      }else{
-                        echo "<td>$argument</td>";
                       }
-                    }
-                  echo "</tr>";
+                    echo "</tr>";
+                  }
                 }
               }
+              
             }else{
               foreach($hotels as $hotel){
                 echo "<tr>";
@@ -200,8 +170,8 @@
                   }
                 echo "</tr>";
               }
-
             }
+            
              
             ?>
 
