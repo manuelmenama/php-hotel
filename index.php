@@ -1,5 +1,11 @@
 <?php
 
+    $have_parking = $_GET["have_parking"];
+    $star_vote = $_GET["star_vote"];
+    $star_vote = intval($star_vote);
+
+    
+
     $hotels = [
 
       [
@@ -40,6 +46,8 @@
 
     ];
 
+    
+
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +67,41 @@
 
   <div class="row">
 
-    <div class="col mt-5">
+    
+
+    <?php 
+    
+      echo "<p>$have_parking</p>";
+      
+
+    ?>
+    <form class="col-6 mt-5 d-flex">
+      <div class="form-check me-3">
+        <input class="form-check-input" type="radio" name="have_parking" id="have-parcking-yes" value="1" cheked>
+        <label class="form-check-label" for="have-parcking-yes">
+          Con Parcheggio
+        </label>
+      </div>
+      <div class="form-check me-3">
+        <input class="form-check-input" type="radio" name="have_parking" id="have-parcking-no" value="0">
+        <label class="form-check-label" for="have-parcking-no">
+          Senza Parcheggio
+        </label>
+      </div>
+      <select class="form-select me-3" aria-label="Default select example" name="star_vote">
+        <option selected>Minimum stars</option>
+        <option value="1">Una Stella</option>
+        <option value="2">Due Stelle</option>
+        <option value="3">Tre Stelle</option>
+        <option value="4">Quattro Stelle</option>
+        <option value="5">Cinque Stelle</option>
+      </select>
+      <button class="btn btn-primary" type="submit">Filtra</button>
+    </form>
+
+    
+
+    <div class="col-12 mt-5">
 
       <table class="table table-striped">
         <thead>
@@ -74,34 +116,92 @@
         <tbody>
           
           <?php
+            /*if(isset($star_vote)){
 
+              if($hotel["vote"] >= $star_vote){
+                foreach($hotels as $hotel){
+                  echo "<tr>";
+                    foreach($hotel as $key => $argument){
+                      if($key === 'name'){
+                        echo "<th>$argument</th>";
+                      }elseif($key === 'parking'){
+                        if($argument){
+                          echo "<td>Si</td>";
+                        }else{
+                          echo "<td>No</td>";
+                        }
+                      }else{
+                        echo "<td>$argument</td>";
+                      }
+                    }
+                  echo "</tr>";
+                }
+              }
+
+            }else{
               foreach($hotels as $hotel){
                 echo "<tr>";
-
-                foreach($hotel as $key => $argument){
-
-                  if($key === 'name'){
-
-                    echo "<th>$argument</th>";
-
-                  }elseif($key === 'parking'){
-
-                    if($argument){
-
-                      echo "<td>Si</td>";
-
+                  foreach($hotel as $key => $argument){
+                    if($key === 'name'){
+                      echo "<th>$argument</th>";
+                    }elseif($key === 'parking'){
+                      if($argument){
+                        echo "<td>Si</td>";
+                      }else{
+                        echo "<td>No</td>";
+                      }
                     }else{
-
-                      echo "<td>No</td>";
-
+                      echo "<td>$argument</td>";
                     }
-
-                  }else{
-                    echo "<td>$argument</td>";
                   }
-                }
                 echo "</tr>";
               }
+            }*/
+            if(isset($have_parking)){
+              
+              ($have_parking === "1") ? $have_parking = true : $have_parking = false;
+
+
+              foreach($hotels as $hotel){
+
+                if($hotel["parking"] === $have_parking){
+                  echo "<tr>";
+                    foreach($hotel as $key => $argument){
+                      if($key === 'name'){
+                        echo "<th>$argument</th>";
+                      }elseif($key === 'parking'){
+                        if($argument){
+                          echo "<td>Si</td>";
+                        }else{
+                          echo "<td>No</td>";
+                        }
+                      }else{
+                        echo "<td>$argument</td>";
+                      }
+                    }
+                  echo "</tr>";
+                }
+              }
+            }else{
+              foreach($hotels as $hotel){
+                echo "<tr>";
+                  foreach($hotel as $key => $argument){
+                    if($key === 'name'){
+                      echo "<th>$argument</th>";
+                    }elseif($key === 'parking'){
+                      if($argument){
+                        echo "<td>Si</td>";
+                      }else{
+                        echo "<td>No</td>";
+                      }
+                    }else{
+                      echo "<td>$argument</td>";
+                    }
+                  }
+                echo "</tr>";
+              }
+
+            }
              
             ?>
 
