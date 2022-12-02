@@ -154,21 +154,24 @@
               
             }else{
               foreach($hotels as $hotel){
-                echo "<tr>";
-                  foreach($hotel as $key => $argument){
-                    if($key === 'name'){
-                      echo "<th>$argument</th>";
-                    }elseif($key === 'parking'){
-                      if($argument){
-                        echo "<td>Si</td>";
+                if($hotel["vote"] >= $star_vote_int){
+
+                  echo "<tr>";
+                    foreach($hotel as $key => $argument){
+                      if($key === 'name'){
+                        echo "<th>$argument</th>";
+                      }elseif($key === 'parking'){
+                        if($argument){
+                          echo "<td>Si</td>";
+                        }else{
+                          echo "<td>No</td>";
+                        }
                       }else{
-                        echo "<td>No</td>";
+                        echo "<td>$argument</td>";
                       }
-                    }else{
-                      echo "<td>$argument</td>";
                     }
-                  }
-                echo "</tr>";
+                  echo "</tr>";
+                }
               }
             }
             
